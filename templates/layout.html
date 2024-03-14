@@ -1,0 +1,330 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Plus Admin</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="{{ url_for('static',filename='assets/vendors/mdi/css/materialdesignicons.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='assets/vendors/flag-icon-css/css/flag-icon.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='assets/vendors/css/vendor.bundle.base.css') }}">
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <link rel="stylesheet" href="{{ url_for('static',filename='assets/vendors/jquery-bar-rating/css-stars.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static',filename='assets/vendors/font-awesome/css/font-awesome.min.css') }}" />
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <!-- endinject -->
+    <!-- Layout styles -->
+    <link rel="stylesheet" href="{{ url_for('static',filename='assets/css/demo_1/style.css') }}" />
+    <!-- End layout styles -->
+    <link rel="shortcut icon" href="{{ url_for('static',filename='assets/images/favicon.png') }}" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.4/mammoth.browser.min.js"></script>
+    <style>
+      /* Remove default list styling */
+      ul {
+          list-style-type: none;
+          padding: 0;
+      }
+      /* Style list items */
+      li {
+          margin-bottom: 10px;
+          margin-left:30px;
+      }
+      /* Style view button */
+      .view-button {
+      padding: 5px 10px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      display: inline-block; /* Add this line */
+      margin-left: 10px; /* Adjust margin as needed */
+  }
+  </style>
+  </head>
+  <body>
+    <div class="container-scroller">
+      <!-- partial:partials/_sidebar.html -->
+      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav">
+          <li class="nav-item nav-profile border-bottom">
+            <a href="#" class="nav-link flex-column">
+              <div class="nav-profile-image">
+                <img src="{{ url_for('static',filename='assets/images/faces/face1.jpg')}}" alt="profile" />
+                <!--change to offline or busy as needed-->
+              </div>
+              <div class="nav-profile-text d-flex ml-0 mb-3 flex-column">
+                <span class="font-weight-semibold mb-1 mt-2 text-center">Anusha Thakur</span>
+                <span class="text-secondary icon-sm text-center">Assoc2</span>
+              </div>
+            </a>
+          </li>
+          <li class="nav-item pt-3">
+            <a class="nav-link d-block" href="index.html">
+              <img class="sidebar-brand-logo" src="{{ url_for('static',filename='assets/images/logo.png')}}" width="30px" height="30px" alt="" />
+              StateStreet
+          <li class="nav-item">
+            <a class="nav-link" href="/">
+              <i class="mdi mdi-upload-outline menu-icon"></i>
+              <span class="menu-title">Upload PDF</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <!-- partial -->
+      <div class="container-fluid page-body-wrapper">
+        <!-- partial:partials/_settings-panel.html -->
+        <div id="settings-trigger"><i class="mdi mdi-settings"></i></div>
+        <div id="theme-settings" class="settings-panel">
+          <i class="settings-close mdi mdi-close"></i>
+          <p class="settings-heading">SIDEBAR SKINS</p>
+          <div class="sidebar-bg-options selected" id="sidebar-default-theme">
+            <div class="img-ss rounded-circle bg-light border mr-3"></div>Default
+          </div>
+          <div class="sidebar-bg-options" id="sidebar-dark-theme">
+            <div class="img-ss rounded-circle bg-dark border mr-3"></div>Dark
+          </div>
+          <p class="settings-heading mt-2">HEADER SKINS</p>
+          <div class="color-tiles mx-0 px-4">
+            <div class="tiles default primary"></div>
+            <div class="tiles success"></div>
+            <div class="tiles warning"></div>
+            <div class="tiles danger"></div>
+            <div class="tiles info"></div>
+            <div class="tiles dark"></div>
+            <div class="tiles light"></div>
+          </div>
+        </div>
+        <!-- partial -->
+        <!-- partial:partials/_navbar.html -->
+        <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+          <div class="navbar-menu-wrapper d-flex align-items-stretch">
+            <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+              <span class="mdi mdi-chevron-double-left"></span>
+            </button>
+            <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+              <a class="navbar-brand brand-logo-mini" href="index.html"><img src="{{ url_for('static',filename='assets/images/logo-mini.svg')}}" alt="logo" /></a>
+            </div>
+            
+            <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+              <span class="mdi mdi-menu"></span>
+            </button>
+          </div>
+        </nav>
+        <!-- partial -->
+        <div class="main-panel">
+          <div class="content-wrapper pb-0">
+            <div class="col-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Upload PDF</h4>
+                  <form class="forms-sample" id="pdfForm" action="/convert" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                      <input type="file" name="file" class="file-upload-default" accept=".pdf"/>
+                      <div class="input-group col-xs-12">
+                        <input type="text" class="form-control file-upload-info" disabled placeholder="Upload PDF" />
+                        <span class="input-group-append">
+                          <button class="file-upload-browse btn btn-primary" type="button"> Upload </button>
+                        </span>
+                      </div>
+                    </div>
+                    <button type="submit" name="action" value="convert_to_docx" class="btn btn-primary mr-2"> Submit </button>
+                  </form>
+                </div>
+               
+                  <h4 class="card-title" style="margin-left: 30px;">List of Uploaded Files</h4>
+                <ul>
+                    {% for file in files %}
+                        <li>
+                          {{ file }}
+                          <button class="view-button" data-filename="{{ file }}">View</button>
+                        </li>   
+                    {% endfor %}
+                </ul>
+              
+              </div>
+              
+            </div>
+           
+                <!-- Create an iframe for PDF preview -->
+            <!-- <iframe id="preview-frame" style="display: none;"></iframe> -->
+          </div>
+         
+          <!-- content-wrapper ends -->
+          <!-- partial:partials/_footer.html -->
+          <footer class="footer">
+            <div class="d-sm-flex justify-content-center justify-content-sm-between">
+              <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © Statestreet.com 2024</span>
+            </div>
+            <div>
+            </div>
+          </footer>
+          <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+      </div>
+      <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="{{ url_for('static',filename='assets/vendors/js/vendor.bundle.base.js')}}"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <script src="{{ url_for('static',filename='assets/vendors/jquery-bar-rating/jquery.barrating.min.js')}}"></script>
+    <script src="{{ url_for('static',filename='assets/vendors/chart.js/Chart.min.js')}}"></script>
+    <script src="{{ url_for('static',filename='assets/vendors/flot/jquery.flot.js')}}"></script>
+    <script src="{{ url_for('static',filename='assets/vendors/flot/jquery.flot.resize.js')}}"></script>
+    <script src="{{ url_for('static',filename='assets/vendors/flot/jquery.flot.categories.js')}}"></script>
+    <script src="{{ url_for('static',filename='assets/vendors/flot/jquery.flot.fillbetween.js')}}"></script>
+    <script src="{{ url_for('static',filename='assets/vendors/flot/jquery.flot.stack.js')}}"></script>
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="{{ url_for('static',filename='assets/js/off-canvas.js')}}"></script>
+    <script src="{{ url_for('static',filename='assets/js/hoverable-collapse.js')}}"></script>
+    <script src="{{ url_for('static',filename='assets/js/misc.js')}}"></script>
+    <script src="{{ url_for('static',filename='assets/js/settings.js')}}"></script>
+    <script src="{{ url_for('static',filename='assets/js/todolist.js')}}"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page -->
+    <script src="{{ url_for('static',filename='assets/js/dashboard.js')}}"></script>
+    <script src="{{ url_for('static',filename='assets/js/file-upload.js')}}"></script>
+    <script src="{{ url_for('static',filename='assets/js/typeahead.js')}}"></script>
+    <script src="{{ url_for('static',filename='assets/js/select2.js')}}"></script>
+    <!-- End custom js for this page -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script> -->
+
+    <!-- Your existing JavaScript code -->
+    <!-- <script>
+      document.addEventListener('DOMContentLoaded', function() {
+    const viewButtons = document.querySelectorAll('.view-button');
+    const previewFrame = document.getElementById('preview-frame');
+
+    viewButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const filename = this.dataset.filename;
+            const fileExt = filename.split('.').pop().toLowerCase();
+
+            if (fileExt === 'pdf') {
+                // Construct the full URL to the PDF file
+                const baseURL = window.location.origin;
+                const fileURL = `${baseURL}/uploads/${filename}`;
+
+                // Use PDF.js to render PDF files
+                pdfjsLib.getDocument(fileURL).promise.then(pdf => {
+                    pdf.getPage(1).then(page => {
+                        const scale = 1.5;
+                        const viewport = page.getViewport({ scale });
+                        const canvas = document.createElement('canvas');
+                        const context = canvas.getContext('2d');
+                        canvas.height = viewport.height;
+                        canvas.width = viewport.width;
+
+                        page.render({
+                            canvasContext: context,
+                            viewport: viewport
+                        }).promise.then(() => {
+                            const imgData = canvas.toDataURL();
+                            previewFrame.src = imgData;
+                        });
+                    });
+                }).catch(error => {
+                    console.error('Error loading PDF:', error);
+                    alert('Error loading PDF. Please try again.');
+                });
+            } else {
+                // Handle other file types if needed
+                alert('Unsupported file format');
+            }
+
+            previewFrame.style.display = 'block';
+        });
+    });
+});
+    </script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.4/mammoth.browser.min.js"></script>
+    <!-- <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const viewButtons = document.querySelectorAll('.view-button');
+        const previewFrame = document.getElementById('preview-frame');
+    
+        viewButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const filename = this.dataset.filename;
+                const fileExt = filename.split('.').pop().toLowerCase();
+    
+                if (fileExt === 'pdf') {
+                    // Construct the full URL to the PDF file
+                    const baseURL = window.location.origin;
+                    const fileURL = `${baseURL}/uploads/${filename}`;
+    
+                    // Use PDF.js to render PDF files
+                    pdfjsLib.getDocument(fileURL).promise.then(pdf => {
+                        pdf.getPage(1).then(page => {
+                            const scale = 1.5;
+                            const viewport = page.getViewport({ scale });
+                            const canvas = document.createElement('canvas');
+                            const context = canvas.getContext('2d');
+                            canvas.height = viewport.height;
+                            canvas.width = viewport.width;
+    
+                            page.render({
+                                canvasContext: context,
+                                viewport: viewport
+                            }).promise.then(() => {
+                                const imgData = canvas.toDataURL();
+                                previewFrame.src = imgData;
+                            });
+                        });
+                    }).catch(error => {
+                        console.error('Error loading PDF:', error);
+                        alert('Error loading PDF. Please try again.');
+                    });
+                } else if (fileExt === 'docx') {
+                    // Construct the full URL to the DOCX file
+                    const baseURL = window.location.origin;
+                    const fileURL = `${baseURL}/uploads/${filename}`;
+    
+                    // Use Mammoth.js to convert DOCX files to HTML
+                    mammoth.convertToHtml({ url: fileURL })
+                        .then(result => {
+                            previewFrame.srcdoc = result.value;
+                        })
+                        .catch(error => {
+                            console.error('Error converting DOCX to HTML:', error);
+                            alert('Error converting DOCX to HTML. Please try again.');
+                        });
+                } else {
+                    // Handle other file types if needed
+                    alert('Unsupported file format');
+                }
+    
+                previewFrame.style.display = 'block';
+            });
+        });
+    });
+    </script> -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+          // Get all buttons with the class "view-button"
+          var viewButtons = document.querySelectorAll('.view-button');
+          
+          // Add click event listener to each button
+          viewButtons.forEach(function(button) {
+              button.addEventListener('click', function() {
+                  // Get the filename from the data-filename attribute
+                  var filename = button.getAttribute('data-filename');
+                  // Change the URL to the appropriate endpoint where your Flask app serves files
+                  // This assumes your Flask app is running locally on port 5000
+                  var url = 'http://localhost:5000/view/' + filename;
+                  // Open the file in a new tab/window
+                  window.open(url, '_blank');
+              });
+          });
+      });
+  </script>
+  </body>
+</html>

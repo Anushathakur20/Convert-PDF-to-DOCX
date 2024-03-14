@@ -1,0 +1,82 @@
+{% extends 'layout.html' %} 
+{%block head %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload PDF</title>
+     <!-- plugins:css -->
+     <!-- <link rel="stylesheet" href="{{ url_for('static',filename='assets/vendors/mdi/css/materialdesignicons.min.css')}}">
+     <link rel="stylesheet" href="{{ url_for('static',filename='assets/vendors/flag-icon-css/css/flag-icon.min.css')}}">
+     <link rel="stylesheet" href="{{ url_for('static',filename='assets/vendors/css/vendor.bundle.base.css')}}"> -->
+     <!-- endinject -->
+     <!-- Plugin css for this page -->
+     <!-- <link rel="stylesheet" href="{{ url_for('static',filename='assets/vendors/select2/select2.min.css')}}" />
+     <link rel="stylesheet" href="{{ url_for('static',filename='assets/vendors/select2-bootstrap-theme/select2-bootstrap.min.css')}}" /> -->
+     <!-- End plugin css for this page -->
+     <!-- inject:css -->
+     <!-- endinject -->
+     <!-- Layout styles -->
+     <!-- <link rel="stylesheet" href="{{ url_for('static',filename='assets/css/demo_1/style.css')}}" /> -->
+     <!-- End layout styles -->
+     <!-- <link rel="shortcut icon" href="{{ url_for('static',filename='assets/images/favicon.png')}}" /> -->
+{% endblock %}
+{%block body %}
+<!-- <h1>Upload a PDF file and convert it into an excel or word file</h1>
+<form id="pdfForm" action="/convert" method="post" enctype="multipart/form-data">
+    <input type="file" name="file" accept=".pdf">
+    <button type="submit" name="action" value="convert_to_docx">Convert to DOCX</button>
+</form> -->
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Upload PDF</h4>
+        <form class="forms-sample" id="pdfForm" action="/convert" method="post" enctype="multipart/form-data">
+          <div class="form-group">
+            <input type="file" name="file" class="file-upload-default" accept=".pdf"/>
+            <div class="input-group col-xs-12">
+              <input type="text" class="form-control file-upload-info" disabled placeholder="Upload PDF" />
+              <span class="input-group-append">
+                <button class="file-upload-browse btn btn-primary" type="button"> Upload </button>
+              </span>
+            </div>
+          </div>
+          <button type="submit" name="action" value="convert_to_docx" class="btn btn-primary mr-2"> Submit </button>
+          <!-- <button class="btn btn-light" onclick="clearFileInput()">Cancel</button> -->
+        </form>
+       
+      </div>
+    </div>
+  </div>
+  
+  <!-- <h1>Upload DOCX File</h1>
+    <form action="/preview" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" accept=".docx">
+        <button type="submit">Preview</button>
+    </form> -->
+  <!-- <script>
+    function clearFileInput() {
+        // Clear the value of the file input field
+        document.getElementById('fileInput').value = '';
+        // Refresh or reload the page
+        window.location.reload();
+    }
+</script> -->
+   <!-- plugins:js -->
+   <script src="{{ url_for('static',filename='assets/vendors/js/vendor.bundle.base.js')}}"></script>
+   <!-- endinject -->
+   <!-- Plugin js for this page -->
+   <script src="{{ url_for('static',filename='assets/vendors/select2/select2.min.js')}}"></script>
+   <script src="{{ url_for('static',filename='assets/vendors/typeahead.js/typeahead.bundle.min.js')}}"></script>
+   <!-- End plugin js for this page -->
+   <!-- inject:js -->
+   <script src="{{ url_for('static',filename='assets/js/off-canvas.js')}}"></script>
+   <script src="{{ url_for('static',filename='assets/js/hoverable-collapse.js')}}"></script>
+   <script src="{{ url_for('static',filename='assets/js/misc.js')}}"></script>
+   <script src="{{ url_for('static',filename='assets/js/settings.js')}}"></script>
+   <script src="{{ url_for('static',filename='assets/js/todolist.js')}}"></script>
+   <!-- endinject -->
+     <!-- Custom js for this page -->
+     <script src="{{ url_for('static',filename='assets/js/file-upload.js')}}"></script>
+     <script src="{{ url_for('static',filename='assets/js/typeahead.js')}}"></script>
+     <script src="{{ url_for('static',filename='assets/js/select2.js')}}"></script>
+     <!-- End custom js for this page -->
+{% endblock %}
